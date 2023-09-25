@@ -140,20 +140,20 @@ public class Player {
      * update numberOfTiles accordingly. Make sure the player does not try to
      * have more than 15 tiles at a time
      */
-//    public void addTile(Tile t) {
-//        if(numberOfTiles<15){
-//            playerTiles[numberOfTiles] = t;
-//            numberOfTiles++;
-//        }
-//    }
-    public void addTile(Tile t) 
-    {
-        if( numberOfTiles < tilesOfPlayer.length)
-        {
-            tilesOfPlayer[numberOfTiles] = t;
+    public void addTile(Tile t) {
+        if(numberOfTiles<15){
+            playerTiles[numberOfTiles] = t;
             numberOfTiles++;
         }
     }
+//    public void addTile(Tile t)
+//    {
+//        if( numberOfTiles < tilesOfPlayer.length)
+//        {
+//            tilesOfPlayer[numberOfTiles] = t;
+//            numberOfTiles++;
+//        }
+//    }
 
     /*
      * TODO: uses bubble sort to sort playerTiles in increasing color and value

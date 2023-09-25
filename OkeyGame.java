@@ -44,23 +44,46 @@ public class OkeyGame {
     public String getLastDiscardedTile() {
         return null;
     }
-
+    ////////////////////////////Amina////////////////////////////////////
     /*
      * TODO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
+
+        Tile[] updatedTileList;
+        int lastTileIndex = tiles.length -1;
+        if (tiles.length >= 1) {
+            Tile top_Tile = tiles[lastTileIndex]; //last tile added to the list, I guess
+            updatedTileList = new Tile[lastTileIndex]; //new list without the top tile
+            for( int i = 0; i < lastTileIndex; i ++){
+                updatedTileList[i] = tiles[i];
+            }
+            tiles = updatedTileList; //I updated the original tile list with the new list
+            return top_Tile.toString();
+        }
         return null;
     }
-
+        ////////////////////////////Amina////////////////////////////////////
     /*
      * TODO: should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
 
-    }
+        Random rand = new Random();
+        //shuffle method ??????????/
+        for (int i = tiles.length; i > 0; i--) {
+            int randTileIndex = rand.nextInt(i + 1); 
+            
+            //REMINDER - MAYBE I CAN USE THE SETTLED SHUFFLE METHOD INSTEAD, (?RECHANGE) ????????????????????????????         
+            Tile current = tiles[i];
+            tiles[i] = tiles[randTileIndex];
+            tiles[randTileIndex] = current;
+        }
 
+    }
+        ////////////////////////////Amina////////////////////////////////////
     /*
      * TODO: check if game still continues, should return true if current player
      * finished the game. Use calculateLongestChainPerTile method to get the
@@ -74,7 +97,27 @@ public class OkeyGame {
      * for this simplified version
      */
     public boolean didGameFinish() {
-        return false;
+
+    boolean gameIsOver = true;
+    int[] longestChainPerTile = players[currentPlayerIndex].calculateLongestChainPerTile();
+    int fourOrMore = 0;
+    int fiveOrMore = 0;
+    int threeOrMore = 0;
+
+        for (int i = 0; i < longestChainPerTile.length; i++){
+            if ( longestChainPerTile[i] >= 4){
+                fourOrMore++;
+            }
+            else if (longestChainPerTile[i] >= 5){
+                fiveOrMore++;
+            }
+        }
+       //if the last one can be any lenth, so every tile length should be >=, ???????????
+        if (((fourOrMore >= 8) && threeOrMore >= 6) || (fiveOrMore >= 5 && threeOrMore >= 9)){
+            return gameIsOver;
+        }
+    
+        return !gameIsOver;
     }
 
     /*

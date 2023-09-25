@@ -108,8 +108,11 @@ public class OkeyGame {
             if ( longestChainPerTile[i] >= 4){
                 fourOrMore++;
             }
-            else if (longestChainPerTile[i] >= 5){
+            if (longestChainPerTile[i] >= 5){
                 fiveOrMore++;
+            }
+            if (longestChainPerTile[i] >= 3){
+                threeOrMore++;
             }
         }
        //if the last one can be any lenth, so every tile length should be >=, ???????????

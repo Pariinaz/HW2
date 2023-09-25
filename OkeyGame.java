@@ -33,6 +33,37 @@ public class OkeyGame {
      * this method assumes the tiles are already sorted
      */
     public void distributeTilesToPlayers() {
+        int[] indexNumbers = new int[57];
+        for (int i = 0; i < 4; i++){
+            if (i == 0){
+                int j = 0;
+                while (j < 15){
+                    Random random = new Random();
+                    int numberOfIndex = random.nextInt(104);
+                    for (int k = 0; k < indexNumbers.length; k++){
+                        if (numberOfIndex != k){
+                            players[i].addTile(tiles[numberOfIndex]);
+
+                            j++;
+                        }
+                    }
+                }
+            }
+            else{
+                int j = 0;
+                while (j < 15){
+                    Random random = new Random();
+                    int numberOfIndex = random.nextInt(104);
+                    for (int k = 0; k < indexNumbers.length; k++){
+                        if (numberOfIndex != k){
+                            players[i].addTile(tiles[numberOfIndex]);
+                            j++;
+                        }
+                    }
+                }
+            }
+        }
+
 
     }
 

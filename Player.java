@@ -150,7 +150,25 @@ public class Player {
      * you are allowed to use Collections.sort method
      */
     public void sortTilesColorFirst() {
-        
+        for (int i = 0; i < playerTiles.length ; i++){
+
+            //Sorted tiles according to tiles' colors.
+            if (playerTiles[i].compareToColorFirst(playerTiles[i+1]) == 1){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
+
+
+        //Other loop replaning sorting according to values.
+        for (int i = 0; i < playerTiles.length; i++){
+            if (playerTiles[i].compareToColorFirst(playerTiles[i+1]) == 0 && playerTiles[i].value > playerTiles[i+1].value){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
     }
 
     /*
@@ -163,6 +181,25 @@ public class Player {
      * you are allowed to use Collections.sort method
      */
     public void sortTilesValueFirst() {
+        for (int i = 0; i < playerTiles.length ; i++){
+
+            //Sorted tiles according to tiles' values.
+            if (playerTiles[i].compareToValueFirst(playerTiles[i+1]) == 1){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
+
+
+        //Other loop replaning sorting according to colors.
+        for (int i = 0; i < playerTiles.length; i++){
+            if (playerTiles[i].compareToColorFirst(playerTiles[i+1]) == 1 && playerTiles[i].value == playerTiles[i+1].value){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
 
     }
 

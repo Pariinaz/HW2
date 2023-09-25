@@ -22,7 +22,7 @@ public class ApplicationMain {
         System.out.print("Play in developer's mode with other player's tiles visible? (Y/N): ");
         char devMode = sc.next().charAt(0);
         boolean devModeOn = devMode == 'Y';
-        
+
         boolean firstTurn = true;
         boolean gameContinues = true;
         int playerChoice = -1;
@@ -31,10 +31,10 @@ public class ApplicationMain {
         boolean sortValueAfterPicking = false;
 
         while(gameContinues) {
-            
+
             int currentPlayer = game.getCurrentPlayerIndex();
             System.out.println(game.getCurrentPlayerName() + "'s turn.");
-            
+
             if(currentPlayer == 0) {
                 // this is the human player's turn
                 game.displayCurrentPlayersTiles();
@@ -59,7 +59,7 @@ public class ApplicationMain {
 
                 // sorting does not pass turn, so it is in a loop until user choses some other value
                 while(playerChoice == 1 || playerChoice == 2) {
-                    
+
                     if(playerChoice == 1) {
                         game.currentPlayerSortTilesColorFirst();
                         // will also sort after picking new tile
@@ -85,7 +85,7 @@ public class ApplicationMain {
                         firstTurn = false;
                     }
                     else if(playerChoice == 4) {
-                        System.out.println("You picked up: " + game.getLastDiscardedTile()); 
+                        System.out.println("You picked up: " + game.getLastDiscardedTile());
                     }
 
                     // sort after picking up new tile
@@ -113,9 +113,14 @@ public class ApplicationMain {
                     playerChoice = sc.nextInt();
 
                     // TODO: make sure the given index is correct, should be 0 <= index <= 14
+                    if(playerChoice<=14 && playerChoice>=0){
+                        game.discardTile(playerChoice);
+                        game.passTurnToNextPlayer();
+                    }
+                    else{
+                        System.out.println("NOT VALID NUMBER IT SHOULD BE BETWEEN 0 AND 14... ");
+                    }
 
-                    game.discardTile(playerChoice);
-                    game.passTurnToNextPlayer();
                 }
                 else{
                     // if we finish the hand we win

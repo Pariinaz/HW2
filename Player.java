@@ -123,7 +123,16 @@ public class Player {
      * TODO: removes and returns the tile in given index
      */
     public Tile getAndRemoveTile(int index) {
-        return null;
+        Tile[] array = new Tile[numberOfTiles-1];
+        Tile tileToBeRemoved = playerTiles[index];
+        for(int m = 0 ; m<index ; m++){
+            array[m] = playerTiles[m];
+        }
+        for(int n = index+1 ; n < numberOfTiles ; n++){
+            array[n-1] = playerTiles[n];
+        }
+
+        return tileToBeRemoved;
     }
 
     /*
@@ -131,6 +140,12 @@ public class Player {
      * update numberOfTiles accordingly. Make sure the player does not try to
      * have more than 15 tiles at a time
      */
+//    public void addTile(Tile t) {
+//        if(numberOfTiles<15){
+//            playerTiles[numberOfTiles] = t;
+//            numberOfTiles++;
+//        }
+//    }
     public void addTile(Tile t) 
     {
         if( numberOfTiles < tilesOfPlayer.length)

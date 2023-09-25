@@ -56,13 +56,59 @@ public class Player {
         tilePosition = findPositionOfTile(t);
 
         // TODO: find the longest chain starting from tilePosition going left and right
-        int longestChainColorFirst = 0;
+
+        int longestChainColorFirst = 1;
+
+        for(int i = tilePosition; i < numberOfTiles ; i++)
+        {
+            if( t.canFormChainWith(playerTiles[i]) == 1)
+            {
+                int k = 1;
+                while (k != 0){
+                    if (t.canFormChainWith(playerTiles[i + k]) !=1 || i + k == 14){
+                        i = i + k;
+                        t = playerTiles[i];
+
+
+                        k = 0;  
+                    }
+                    else{
+                        k++;
+                        longestChainColorFirst++;
+                    }
+                }
+            }
+            
+        }
 
         sortTilesValueFirst();
         tilePosition = findPositionOfTile(t);
         
         // TODO: find the longest chain starting from tilePosition going left and right
-        int longestChainValueFirst = 0;
+
+        int longestChainValueFirst = 1;
+
+        for(int i = tilePosition; i < numberOfTiles ; i++)
+        {
+            if( t.canFormChainWith(playerTiles[i]) == 2)
+            {
+                int k = 1;
+                while (k != 0){
+                    if (t.canFormChainWith(playerTiles[i + k]) !=2 || i + k == 14){
+                        i = i + k;
+                        t = playerTiles[i];
+
+
+                        k = 0;  
+                    }
+                    else{
+                        k++;
+                        longestChainColorFirst++;
+                    }
+                }
+            }
+            
+        }
 
 
         if(longestChainColorFirst > longestChainValueFirst) {
@@ -85,8 +131,13 @@ public class Player {
      * update numberOfTiles accordingly. Make sure the player does not try to
      * have more than 15 tiles at a time
      */
-    public void addTile(Tile t) {
-
+    public void addTile(Tile t) 
+    {
+        if( numberOfTiles < tilesOfPlayer.length)
+        {
+            tilesOfPlayer[numberOfTiles] = t;
+            numberOfTiles++;
+        }
     }
 
     /*

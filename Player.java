@@ -56,13 +56,59 @@ public class Player {
         tilePosition = findPositionOfTile(t);
 
         // TODO: find the longest chain starting from tilePosition going left and right
-        int longestChainColorFirst = 0;
+
+        int longestChainColorFirst = 1;
+
+        for(int i = tilePosition; i < numberOfTiles ; i++)
+        {
+            if( t.canFormChainWith(playerTiles[i]) == 1)
+            {
+                int k = 1;
+                while (k != 0){
+                    if (t.canFormChainWith(playerTiles[i + k]) !=1 || i + k == 14){
+                        i = i + k;
+                        t = playerTiles[i];
+
+
+                        k = 0;  
+                    }
+                    else{
+                        k++;
+                        longestChainColorFirst++;
+                    }
+                }
+            }
+            
+        }
 
         sortTilesValueFirst();
         tilePosition = findPositionOfTile(t);
         
         // TODO: find the longest chain starting from tilePosition going left and right
-        int longestChainValueFirst = 0;
+
+        int longestChainValueFirst = 1;
+
+        for(int i = tilePosition; i < numberOfTiles ; i++)
+        {
+            if( t.canFormChainWith(playerTiles[i]) == 2)
+            {
+                int k = 1;
+                while (k != 0){
+                    if (t.canFormChainWith(playerTiles[i + k]) !=2 || i + k == 14){
+                        i = i + k;
+                        t = playerTiles[i];
+
+
+                        k = 0;  
+                    }
+                    else{
+                        k++;
+                        longestChainColorFirst++;
+                    }
+                }
+            }
+            
+        }
 
 
         if(longestChainColorFirst > longestChainValueFirst) {
@@ -77,7 +123,16 @@ public class Player {
      * TODO: removes and returns the tile in given index
      */
     public Tile getAndRemoveTile(int index) {
-        return null;
+        Tile[] array = new Tile[numberOfTiles-1];
+        Tile tileToBeRemoved = playerTiles[index];
+        for(int m = 0 ; m<index ; m++){
+            array[m] = playerTiles[m];
+        }
+        for(int n = index+1 ; n < numberOfTiles ; n++){
+            array[n-1] = playerTiles[n];
+        }
+
+        return tileToBeRemoved;
     }
 
     /*
@@ -86,8 +141,19 @@ public class Player {
      * have more than 15 tiles at a time
      */
     public void addTile(Tile t) {
-
+        if(numberOfTiles<15){
+            playerTiles[numberOfTiles] = t;
+            numberOfTiles++;
+        }
     }
+//    public void addTile(Tile t)
+//    {
+//        if( numberOfTiles < tilesOfPlayer.length)
+//        {
+//            tilesOfPlayer[numberOfTiles] = t;
+//            numberOfTiles++;
+//        }
+//    }
 
     /*
      * TODO: uses bubble sort to sort playerTiles in increasing color and value
@@ -99,7 +165,25 @@ public class Player {
      * you are allowed to use Collections.sort method
      */
     public void sortTilesColorFirst() {
-        
+        for (int i = 0; i < playerTiles.length ; i++){
+
+            //Sorted tiles according to tiles' colors.
+            if (playerTiles[i].compareToColorFirst(playerTiles[i+1]) == 1){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
+
+
+        //Other loop replaning sorting according to values.
+        for (int i = 0; i < playerTiles.length; i++){
+            if (playerTiles[i].compareToColorFirst(playerTiles[i+1]) == 0 && playerTiles[i].value > playerTiles[i+1].value){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
     }
 
     /*
@@ -112,6 +196,25 @@ public class Player {
      * you are allowed to use Collections.sort method
      */
     public void sortTilesValueFirst() {
+        for (int i = 0; i < playerTiles.length ; i++){
+
+            //Sorted tiles according to tiles' values.
+            if (playerTiles[i].compareToValueFirst(playerTiles[i+1]) == 1){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
+
+
+        //Other loop replaning sorting according to colors.
+        for (int i = 0; i < playerTiles.length; i++){
+            if (playerTiles[i].compareToColorFirst(playerTiles[i+1]) == 1 && playerTiles[i].value == playerTiles[i+1].value){
+                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                playerTiles[i] = playerTiles[i+1];
+                playerTiles[i+1] = changeTile;
+            }
+        }
 
     }
 

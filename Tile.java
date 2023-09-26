@@ -1,5 +1,5 @@
 public class Tile {
-    
+
     int value;
     char color;
 
@@ -19,6 +19,9 @@ public class Tile {
      * return true if they are matching, false otherwise
      */
     public boolean matchingTiles(Tile t) {
+        if(compareToColorFirst(t)== 0 || compareToValueFirst(t) == 0){
+            return true;
+        }
         return false;
     }
 
@@ -29,14 +32,14 @@ public class Tile {
         else if(colorNameToInt() > t.colorNameToInt()) {
             return 1;
         }
-        else{
-             if(getValue() < t.getValue()) {
+        else{   //in case if the color value is equal(same color)
+            if(getValue() < t.getValue()) {
                 return -1;
             }
             else if(getValue() > t.getValue()) {
                 return 1;
             }
-            else{
+            else{ //with same value
                 return 0;
             }
         }
@@ -49,14 +52,14 @@ public class Tile {
         else if(getValue() > t.getValue()) {
             return 1;
         }
-        else{
-             if(colorNameToInt() < t.colorNameToInt()) {
+        else{ // if values are equal
+            if(colorNameToInt() < t.colorNameToInt()) {
                 return -1;
             }
             else if(colorNameToInt() > t.colorNameToInt()) {
                 return 1;
             }
-            else{
+            else{ // if names are equal
                 return 0;
             }
         }
@@ -79,7 +82,7 @@ public class Tile {
 
     // determines if this tile can be adjacent to the given tile in a chain
     // returns 0 if the tiles cannot be adjacent in a chain
-    // returns 1 if the have matching color with consecutive ordering
+    // returns 1 if they have matching color with consecutive ordering
     // returns 2 if they have matching value with different coloring
     public int canFormChainWith(Tile t) {
         // can be adjacent if same color and consecutive number
@@ -106,5 +109,5 @@ public class Tile {
     public char getColor() {
         return color;
     }
-    
+
 }

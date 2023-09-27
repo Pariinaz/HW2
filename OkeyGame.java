@@ -128,7 +128,7 @@ public class OkeyGame {
 
         Random rand = new Random();
         //shuffle method ??????????/
-        for (int i = tiles.length; i > 0; i--) {
+        for (int i = tiles.length-1; i > 0; i--) {
             int randTileIndex = rand.nextInt(i + 1); 
             
             //REMINDER - MAYBE I CAN USE THE SETTLED SHUFFLE METHOD INSTEAD, (?RECHANGE) ????????????????????????????         

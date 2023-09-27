@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class OkeyGame {
 
     Player[] players;
@@ -41,7 +43,7 @@ public class OkeyGame {
                     Random random = new Random();
                     int numberOfIndex = random.nextInt(104);
                     for (int k = 0; k < indexNumbers.length; k++){
-                        if (numberOfIndex != k){
+                        if (numberOfIndex != k && k == indexNumbers.length-1){
                             players[i].addTile(tiles[numberOfIndex]);
 
                             j++;
@@ -55,7 +57,7 @@ public class OkeyGame {
                     Random random = new Random();
                     int numberOfIndex = random.nextInt(104);
                     for (int k = 0; k < indexNumbers.length; k++){
-                        if (numberOfIndex != k){
+                        if (numberOfIndex != k && k == indexNumbers.length-1){
                             players[i].addTile(tiles[numberOfIndex]);
                             j++;
                         }

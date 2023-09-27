@@ -77,6 +77,12 @@ public class OkeyGame {
     public String getLastDiscardedTile() {
         return null;
     }
+
+    // duplicate of getLastDiscardedTile method that returns Tile 
+    public Tile getLastDiscardedTile2(){
+        return lastDiscardedTile;
+    }
+
     ////////////////////////////Amina////////////////////////////////////
     /*
      * TODO: get the top tile from tiles array for the current player
@@ -95,6 +101,22 @@ public class OkeyGame {
             }
             tiles = updatedTileList; //I updated the original tile list with the new list
             return top_Tile.toString();
+        }
+        return null;
+    }
+
+    // duplicate of getTopTile method that returns Tile 
+    public Tile getTopTile2(){
+        Tile[] updatedTileList;
+        int lastTileIndex = tiles.length -1;
+        if (tiles.length >= 1) {
+            Tile top_Tile = tiles[lastTileIndex]; //last tile added to the list, I guess
+            updatedTileList = new Tile[lastTileIndex]; //new list without the top tile
+            for( int i = 0; i < lastTileIndex; i ++){
+                updatedTileList[i] = tiles[i];
+            }
+            tiles = updatedTileList; //I updated the original tile list with the new list
+            return top_Tile;
         }
         return null;
     }
@@ -164,7 +186,16 @@ public class OkeyGame {
      * the current status. Print whether computer picks from tiles or discarded ones.
      */
     public void pickTileForComputer() {
-
+        Random rand = new Random();
+        int randomInt = rand.nextInt(2);
+        if (randomInt == 0){
+            players[currentPlayerIndex].addTile(getTopTile2());
+            System.out.println("The computer picks from tiles.");
+        }
+        else{
+            players[currentPlayerIndex].addTile(getLastDiscardedTile2());
+            System.out.println("The computer picks from discarded tiles.");
+        }
     }
 
     /*
@@ -176,7 +207,18 @@ public class OkeyGame {
      * known by other players
      */
     public void discardTileForComputer() {
-
+        int lowestChainLength = 100000;
+        int discardTileIndex = -1;
+        Tile[] playerTiles = players[currentPlayerIndex].getTiles();
+        for (int x = 0; x < players[currentPlayerIndex].numberOfTiles; x++){
+            int currentChainLength = players[currentPlayerIndex].findLongestChainOf(playerTiles[x]);
+            if (currentChainLength < lowestChainLength){
+                lowestChainLength = currentChainLength;
+                discardTileIndex = x;
+            }
+        }
+        discardTile(discardTileIndex);
+        System.out.println("The tile " + getLastDiscardedTile() + " was discarded.");
     }
 
     /*
@@ -185,7 +227,9 @@ public class OkeyGame {
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
-
+        Tile[] playerTiles = players[currentPlayerIndex].getTiles();
+        lastDiscardedTile = playerTiles[tileIndex];
+        players[currentPlayerIndex].getAndRemoveTile(tileIndex);
     }
 
     public void currentPlayerSortTilesColorFirst() {

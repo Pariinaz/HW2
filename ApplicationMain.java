@@ -44,6 +44,7 @@ public class ApplicationMain {
                 game.displayCurrentPlayersTiles();
                 game.displayDiscardInformation();
 
+                
                 System.out.println("What will you do?");
                 System.out.println("1. Sort By Color First");
                 System.out.println("2. Sort By Value First");
@@ -101,11 +102,13 @@ public class ApplicationMain {
                     }
 
                     // display the hand after picking up new tile
-                    game.displayCurrentPlayersTiles();
-                }
-                else{
+                    if (devMode == 'Y'){
+                        game.displayCurrentPlayersTiles();
+                    }
+                    else{
                     // after first turn it is no longer the first turn
                     firstTurn = false;
+                    }
                 }
 
                 gameContinues = !game.didGameFinish();
@@ -124,18 +127,17 @@ public class ApplicationMain {
                     else{
                         System.out.println("NOT VALID NUMBER IT SHOULD BE BETWEEN 0 AND 14... ");
                     }
-
+                    firstTurn = false;
                 }
                 else{
                     // if we finish the hand we win
                     System.out.println("Congratulations, you win!");
                 }
             }
+            
             else{
                 // this is the computer player's turn
-                if(devModeOn) {
-                    game.displayCurrentPlayersTiles();
-                }
+                game.displayCurrentPlayersTiles();
 
                 // computer picks a tile from tile stack or other player's discard
                 game.pickTileForComputer();

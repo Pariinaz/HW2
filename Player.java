@@ -51,7 +51,6 @@ public class Player {
      */
     public int findLongestChainOf(Tile t) {
         int tilePosition;
-
         sortTilesColorFirst();
         tilePosition = findPositionOfTile(t);
 
@@ -64,12 +63,10 @@ public class Player {
             if( t.canFormChainWith(playerTiles[i]) == 1)
             {
                 int k = 1;
-                while (k != 0){
+                while (k != 0 && i+k < numberOfTiles){ //******PARINAZ***** added the i+k < numberOfTiles to check not exceed from 15 limit.
                     if (t.canFormChainWith(playerTiles[i + k]) !=1 || i + k == 14){
                         i = i + k;
                         t = playerTiles[i];
-
-
                         k = 0;  
                     }
                     else{
@@ -93,8 +90,8 @@ public class Player {
             if( t.canFormChainWith(playerTiles[i]) == 2)
             {
                 int k = 1;
-                while (k != 0){
-                    if (t.canFormChainWith(playerTiles[i + k]) !=2 || i + k == 14){
+                while (k != 0 && i + k < numberOfTiles){
+                    if (t.canFormChainWith(playerTiles[i + k]) !=2){//*****PARINAZ***** I removed || i + k == 14
                         i = i + k;
                         t = playerTiles[i];
 
@@ -122,17 +119,25 @@ public class Player {
     /*
      * TODO: removes and returns the tile in given index
      */
-    public Tile getAndRemoveTile(int index) {
-        Tile[] array = new Tile[numberOfTiles-1];
+    public Tile getAndRemoveTile(int index) {//*****PARINAZ***** fixed it.
+//        Tile[] array = new Tile[numberOfTiles-1];
+//        Tile tileToBeRemoved = playerTiles[index];
+//        for(int m = 0 ; m<index ; m++){
+//            array[m] = playerTiles[m];
+//        }
+//        for(int n = index+1 ; n < numberOfTiles ; n++){
+//            array[n-1] = playerTiles[n];
+//        }
+//
+//        return tileToBeRemoved;
         Tile tileToBeRemoved = playerTiles[index];
-        for(int m = 0 ; m<index ; m++){
-            array[m] = playerTiles[m];
+        //shifting the tile to put the empty place to the end of length
+        for (int i = index; i < numberOfTiles - 1; i++) {
+            playerTiles[i] = playerTiles[i + 1];
         }
-        for(int n = index+1 ; n < numberOfTiles ; n++){
-            array[n-1] = playerTiles[n];
-        }
-
+        //numberOfTiles--;
         return tileToBeRemoved;
+
     }
 
     /*

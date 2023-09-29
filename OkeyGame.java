@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class OkeyGame {
@@ -218,7 +219,7 @@ public class OkeyGame {
             }
         }
         discardTile(discardTileIndex);
-        System.out.println("The tile " + getLastDiscardedTile() + " was discarded.");
+        System.out.println("The tile " + getLastDiscardedTile2() + " was discarded.");//*****PARINAZ***** changed getLastDiscardedTile() to getLastDiscardedTile2() to show the removed tile not null
     }
 
     /*
@@ -229,7 +230,9 @@ public class OkeyGame {
     public void discardTile(int tileIndex) {
         Tile[] playerTiles = players[currentPlayerIndex].getTiles();
         lastDiscardedTile = playerTiles[tileIndex];
+        System.out.println(""+ lastDiscardedTile); //to check code works or not(check point)
         players[currentPlayerIndex].getAndRemoveTile(tileIndex);
+        System.out.println(Arrays.toString(players[currentPlayerIndex].getTiles())); //check point
     }
 
     public void currentPlayerSortTilesColorFirst() {

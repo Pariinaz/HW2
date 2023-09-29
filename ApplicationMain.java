@@ -21,15 +21,19 @@ public class ApplicationMain {
         // developer mode is used for seeing the computer players hands, to be used for debugging
         System.out.print("Play in developer's mode with other player's tiles visible? (Y/N): ");
         char devMode = sc.next().charAt(0);
-        boolean devModeOn = devMode == 'Y';
-
         boolean firstTurn = true;
         boolean gameContinues = true;
-        int playerChoice = -1;
+//*****PARINAZ***** fixed the choice of selecting between Y/N
+        boolean devModeOn = devMode == 'Y';
+        if(devMode == 'Y'){
+            gameContinues = true;
+        } else if (devMode == 'N') {
+            gameContinues = false;
+        }
 
+        int playerChoice = -1;
         boolean sortColorAfterPicking = false;
         boolean sortValueAfterPicking = false;
-
         while(gameContinues) {
 
             int currentPlayer = game.getCurrentPlayerIndex();
@@ -85,7 +89,7 @@ public class ApplicationMain {
                         firstTurn = false;
                     }
                     else if(playerChoice == 4) {
-                        System.out.println("You picked up: " + game.getLastDiscardedTile());
+                        System.out.println("You picked up: " + game.getLastDiscardedTile2()); //*****PARINAZ***** made getLastDiscardedTile -> getLastDiscardedTile2
                     }
 
                     // sort after picking up new tile

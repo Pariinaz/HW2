@@ -76,7 +76,7 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getLastDiscardedTile() {
-        return null;
+        return lastDiscardedTile.toString();
     }
 
     // duplicate of getLastDiscardedTile method that returns Tile 
@@ -101,6 +101,7 @@ public class OkeyGame {
                 updatedTileList[i] = tiles[i];
             }
             tiles = updatedTileList; //I updated the original tile list with the new list
+            players[currentPlayerIndex].addTile(top_Tile); ///***Added tile to player's deck-Rida */
             return top_Tile.toString();
         }
         return null;
@@ -179,7 +180,7 @@ public class OkeyGame {
         return !gameIsOver;
     }
 
-    /*
+    /* Rida
      * TODO: Pick a tile for the current computer player using one of the following:
      * - picking from the tiles array using getTopTile()
      * - picking from the lastDiscardedTile using getLastDiscardedTile()
@@ -199,7 +200,7 @@ public class OkeyGame {
         }
     }
 
-    /*
+    /* Rida
      * TODO: Current computer player will discard the least useful tile.
      * For this use the findLongestChainOf method in Player class to calculate
      * the longest chain length per tile of this player,
@@ -218,11 +219,12 @@ public class OkeyGame {
                 discardTileIndex = x;
             }
         }
+        lastDiscardedTile = playerTiles[discardTileIndex];
         discardTile(discardTileIndex);
-        System.out.println("The tile " + getLastDiscardedTile2() + " was discarded.");//*****PARINAZ***** changed getLastDiscardedTile() to getLastDiscardedTile2() to show the removed tile not null
+        System.out.println("The tile " + getLastDiscardedTile2() + " was discarded.\n");//*****PARINAZ***** changed getLastDiscardedTile() to getLastDiscardedTile2() to show the removed tile not null
     }
 
-    /*
+    /* Rida
      * TODO: discards the current player's tile at given index
      * this should set lastDiscardedTile variable and remove that tile from
      * that player's tiles
@@ -232,7 +234,7 @@ public class OkeyGame {
         lastDiscardedTile = playerTiles[tileIndex];
         System.out.println(""+ lastDiscardedTile); //to check code works or not(check point)
         players[currentPlayerIndex].getAndRemoveTile(tileIndex);
-        System.out.println(Arrays.toString(players[currentPlayerIndex].getTiles())); //check point
+        System.out.println(players[currentPlayerIndex].playerName + "'s Updated Tiles: "+Arrays.toString(players[currentPlayerIndex].getTiles())); //check point
     }
 
     public void currentPlayerSortTilesColorFirst() {

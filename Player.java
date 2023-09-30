@@ -1,3 +1,6 @@
+/**
+ * Parinaz Jafaripourbaghali  22201152
+ */
 public class Player {
     String playerName;
     Tile[] playerTiles;

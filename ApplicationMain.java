@@ -1,3 +1,6 @@
+/**
+ * Parinaz Jafaripourbaghali  22201152
+ */
 import java.util.Scanner;
 
 public class ApplicationMain {

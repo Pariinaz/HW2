@@ -61,7 +61,7 @@ public class Player {
 
         int longestChainColorFirst = 1;
 
-        for(int i = tilePosition; i < numberOfTiles ; i++)
+        for(int i = tilePosition; i < numberOfTiles -1; i++)
         {
             if( t.canFormChainWith(playerTiles[i]) == 1)
             {
@@ -88,7 +88,7 @@ public class Player {
 
         int longestChainValueFirst = 1;
 
-        for(int i = tilePosition; i < numberOfTiles ; i++)
+        for(int i = tilePosition; i < numberOfTiles -1 ; i++)
         {
             if( t.canFormChainWith(playerTiles[i]) == 2)
             {
@@ -138,6 +138,7 @@ public class Player {
         for (int i = index; i < numberOfTiles - 1; i++) {
             playerTiles[i] = playerTiles[i + 1];
         }
+        playerTiles[numberOfTiles-1] = null; //*Added by Rida to empty last space */
         //numberOfTiles--;
         return tileToBeRemoved;
 
@@ -175,22 +176,27 @@ public class Player {
     public void sortTilesColorFirst() {
         for (int j = 0; j < playerTiles.length ; j++){
             for (int i = 1; i < playerTiles.length-j; i++){
-            //Sorted tiles according to tiles' colors.
-            if (playerTiles[i].compareToColorFirst(playerTiles[i-1]) == -1){
-                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
-                playerTiles[i] = playerTiles[i-1];
-                playerTiles[i-1] = changeTile;
-            }
+                //Sorted tiles according to tiles' colors.
+                if (playerTiles[i] != null){ /*Added If statement - Rida */
+                    if (playerTiles[i].compareToColorFirst(playerTiles[i-1]) == -1){
+                    Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                    playerTiles[i] = playerTiles[i-1];
+                    playerTiles[i-1] = changeTile;
+                }
+                }
+                
         }
     }
 
         //Other loop replaning sorting according to values.
         for (int j = 0; j < playerTiles.length; j++){
         for (int i = 1; i < playerTiles.length-j; i++){
-            if (playerTiles[i].compareToColorFirst(playerTiles[i-1]) == 0 && playerTiles[i].value > playerTiles[i-1].value){
-                Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
-                playerTiles[i] = playerTiles[i+1];
-                playerTiles[i-1] = changeTile;
+            if (playerTiles[i] != null){ /*Added If statement - Rida */
+                if (playerTiles[i].compareToColorFirst(playerTiles[i-1]) == 0 && playerTiles[i].value > playerTiles[i-1].value){
+                    Tile changeTile = new Tile(playerTiles[i].value, playerTiles[i].color);
+                    playerTiles[i] = playerTiles[i+1];
+                    playerTiles[i-1] = changeTile;
+                }
             }
         }
     }
@@ -232,8 +238,10 @@ public class Player {
     public int findPositionOfTile(Tile t) {
         int tilePosition = -1;
         for (int i = 0; i < numberOfTiles; i++) {
-            if(playerTiles[i].matchingTiles(t)) {
-                tilePosition = i;
+            if (playerTiles[i] != null){ /*Added If statement - Rida */
+                if(playerTiles[i].matchingTiles(t)) {
+                    tilePosition = i;
+                }
             }
         }
         return tilePosition;
@@ -242,7 +250,12 @@ public class Player {
     public void displayTiles() {
         System.out.println(playerName + "'s Tiles:");
         for (int i = 0; i < numberOfTiles; i++) {
-            System.out.print(playerTiles[i].toString() + " ");
+            if (playerTiles[i] == null){ /*If statement added by Rida */
+                System.out.println(" ");
+            }
+            else{
+                System.out.print(playerTiles[i].toString() + " ");
+            }
         }
         System.out.println();
     }

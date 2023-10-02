@@ -86,7 +86,7 @@ public class ApplicationMain {
                 // after the first turn we can pick up
                 if(!firstTurn) {
                     if(playerChoice == 3) {
-                        System.out.println("You picked up: " + game.getTopTile());
+                        System.out.println("You picked up: " + game.getTopTile2());
                         firstTurn = false;
                     }
                     else if(playerChoice == 4) {

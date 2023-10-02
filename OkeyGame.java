@@ -9,6 +9,7 @@ public class OkeyGame {
     Tile lastDiscardedTile;
 
     int currentPlayerIndex = 0;
+    int currentTile = 0;
 
     public OkeyGame() {
         players = new Player[4];
@@ -76,51 +77,64 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getLastDiscardedTile() {
+        //CHANGED/FIXED
+        players[currentPlayerIndex].addTile(lastDiscardedTile);
         return lastDiscardedTile.toString();
+
     }
 
     // duplicate of getLastDiscardedTile method that returns Tile 
     public Tile getLastDiscardedTile2(){
+        players[currentPlayerIndex].addTile(lastDiscardedTile);
         return lastDiscardedTile;
     }
 
-    ////////////////////////////Amina////////////////////////////////////
+    
     /*
      * TODO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-
-        Tile[] updatedTileList;
-        int lastTileIndex = tiles.length -1;
-        if (tiles.length >= 1) {
-            Tile top_Tile = tiles[lastTileIndex]; //last tile added to the list, I guess
-            updatedTileList = new Tile[lastTileIndex]; //new list without the top tile
-            for( int i = 0; i < lastTileIndex; i ++){
-                updatedTileList[i] = tiles[i];
+        //to get the index of the last tile
+        int lastTileIndex = -1; 
+        //in case if the element is not null, then it changes the index for the last tile
+        for (int i = 0; i < tiles.length; i++) {
+            if (tiles[i] != null) {
+                lastTileIndex = i;
             }
-            tiles = updatedTileList; //I updated the original tile list with the new list
-            players[currentPlayerIndex].addTile(top_Tile); ///***Added tile to player's deck-Rida */
-            return top_Tile.toString();
         }
+        
+        if (lastTileIndex != -1) {
+            Tile topTile = tiles[lastTileIndex];
+            players[currentPlayerIndex].addTile(topTile);
+            tiles[lastTileIndex] = null; // so tile is removed
+            return topTile.toString();
+        }
+        
         return null;
     }
 
     // duplicate of getTopTile method that returns Tile 
     public Tile getTopTile2(){
-        Tile[] updatedTileList;
-        int lastTileIndex = tiles.length -1;
-        if (tiles.length >= 1) {
-            Tile top_Tile = tiles[lastTileIndex]; //last tile added to the list, I guess
-            updatedTileList = new Tile[lastTileIndex]; //new list without the top tile
-            for( int i = 0; i < lastTileIndex; i ++){
-                updatedTileList[i] = tiles[i];
+        //to get the index of the last tile
+        int lastTileIndex = -1; 
+        //in case if the element is not null, then it changes the index for the last tile
+        for (int i = 0; i < tiles.length; i++) {
+            if (tiles[i] != null) {
+                lastTileIndex = i;
             }
-            tiles = updatedTileList; //I updated the original tile list with the new list
-            return top_Tile;
         }
+        
+        if (lastTileIndex != -1) {
+            Tile topTile = tiles[lastTileIndex];
+            players[currentPlayerIndex].addTile(topTile);
+            tiles[lastTileIndex] = null; // so tile is removed
+            return topTile;
+        }
+        
         return null;
+
     }
         ////////////////////////////Amina////////////////////////////////////
     /*
@@ -230,11 +244,10 @@ public class OkeyGame {
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
-        Tile[] playerTiles = players[currentPlayerIndex].getTiles();
-        lastDiscardedTile = playerTiles[tileIndex];
-        System.out.println(""+ lastDiscardedTile); //to check code works or not(check point)
-        players[currentPlayerIndex].getAndRemoveTile(tileIndex);
-        System.out.println(players[currentPlayerIndex].playerName + "'s Updated Tiles: "+Arrays.toString(players[currentPlayerIndex].getTiles())); //check point
+
+    //CHANGED/FIXED
+        lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
+        players[currentPlayerIndex].numberOfTiles--;
     }
 
     public void currentPlayerSortTilesColorFirst() {

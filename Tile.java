@@ -19,10 +19,15 @@ public class Tile {
      * return true if they are matching, false otherwise
      */
     public boolean matchingTiles(Tile t) {
-        if(compareToColorFirst(t)== 0 || compareToValueFirst(t) == 0){
+        //CHANGED/FIXED
+        if (color==t.getColor() && value==t.getValue()) {
             return true;
         }
-        return false;
+        
+             return false;
+        
+        
+    
     }
 
     public int compareToColorFirst(Tile t) {

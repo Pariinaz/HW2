@@ -54,23 +54,26 @@ public class Tile {
     }
 
     public int compareToValueFirst(Tile t) {
-        if(getValue() < t.getValue()) {
-            return -1;
-        }
-        else if(getValue() > t.getValue()) {
-            return 1;
-        }
-        else{ // if values are equal
-            if(colorNameToInt() < t.colorNameToInt()) {
+        if (t!= null){
+            if(getValue() < t.getValue()) {
                 return -1;
             }
-            else if(colorNameToInt() > t.colorNameToInt()) {
+            else if(getValue() > t.getValue() ) {
                 return 1;
             }
-            else{ // if names are equal
-                return 0;
+            else{ // if values are equal
+                if(colorNameToInt() < t.colorNameToInt() ) {
+                    return -1;
+                }
+                else if(colorNameToInt() > t.colorNameToInt()) {
+                    return 1;
+                }
+                else{ // if names are equal
+                    return 0;
+                }
             }
         }
+        return 0;
     }
 
     public int colorNameToInt() {

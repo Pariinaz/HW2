@@ -28,11 +28,6 @@ public class ApplicationMain {
         boolean gameContinues = true;
 //*****PARINAZ***** fixed the choice of selecting between Y/N
         boolean devModeOn = devMode == 'Y';
-        if(devMode == 'Y'){
-            gameContinues = true;
-        } else if (devMode == 'N') {
-            gameContinues = false;
-        }
 
         int playerChoice = -1;
         boolean sortColorAfterPicking = false;
@@ -140,7 +135,9 @@ public class ApplicationMain {
             
             else{
                 // this is the computer player's turn
-                game.displayCurrentPlayersTiles();
+                if (devMode == 'Y'){
+                    game.displayCurrentPlayersTiles();
+                }
 
                 // computer picks a tile from tile stack or other player's discard
                 game.pickTileForComputer();

@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import java.util.Arrays;
 
+=======
+/**
+ * Parinaz Jafaripourbaghali  22201152
+ */
+>>>>>>> main
 public class Player {
     String playerName;
     Tile[] playerTiles;

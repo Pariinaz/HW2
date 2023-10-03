@@ -40,39 +40,26 @@ public class OkeyGame {
      * this method assumes the tiles are already sorted
      */
     public void distributeTilesToPlayers() {
-        int[] indexNumbers = new int[57];
-        for (int i = 0; i < 4; i++){
-            if (i == 0){
-                int j = 0;
-                while (j < 15){
-                    Random random = new Random();
-                    int numberOfIndex = random.nextInt(104);
-                    for (int k = 0; k < indexNumbers.length; k++){
-                        if (numberOfIndex != k && k == indexNumbers.length-1){
-                            players[i].addTile(tiles[numberOfIndex]);
-
-                            j++;
-                        }
-                    }
-                }
+        
+    
+        for (int i = 0; i <= 3; i++) { //for each player
+            int tilesToDistribute ;
+    
+            if (i == 0) {
+                tilesToDistribute = 15;//my tiles should be 15, as I stat the game...
+            } else {
+                tilesToDistribute = 14; //for computer players
             }
-            else{
-                int j = 0;
-                while (j < 15){
-                    Random random = new Random();
-                    int numberOfIndex = random.nextInt(104);
-                    for (int k = 0; k < indexNumbers.length; k++){
-                        if (numberOfIndex != k && k == indexNumbers.length-1){
-                            players[i].addTile(tiles[numberOfIndex]);
-                            j++;
-                        }
-                    }
-                }
+    
+            for (int j = 0; j < tilesToDistribute; j++) {
+                players[i].playerTiles[j] = tiles[i * 15 + j];
+                players[i].numberOfTiles++;
+                tiles[i * 15 + j] = null;
             }
         }
-
-
+        
     }
+    
 
     /*
      * TODO: get the last discarded tile for the current player
@@ -210,12 +197,15 @@ public class OkeyGame {
         if (randomInt == 0){
             players[currentPlayerIndex].addTile(getTopTile2());
             System.out.println("The computer picks from tiles.");
+            
         }
         else{
             players[currentPlayerIndex].addTile(getLastDiscardedTile2());
             System.out.println("The computer picks from discarded tiles.");
         }
+        
     }
+    
 
     /* Rida
      * TODO: Current computer player will discard the least useful tile.
@@ -225,20 +215,27 @@ public class OkeyGame {
      * this method should print what tile is discarded since it should be
      * known by other players
      */
-    public void discardTileForComputer() {
-        int lowestChainLength = 100000;
-        int discardTileIndex = -1;
-        Tile[] playerTiles = players[currentPlayerIndex].getTiles();
-        for (int x = 0; x < players[currentPlayerIndex].numberOfTiles; x++){
-            int currentChainLength = players[currentPlayerIndex].findLongestChainOf(playerTiles[x]);
-            if (currentChainLength < lowestChainLength){
-                lowestChainLength = currentChainLength;
-                discardTileIndex = x;
-            }
+    public void discardTileForComputer() {//CHANGED
+
+    
+    Tile[] currPLayerTiles = players[currentPlayerIndex].getTiles();
+
+    int lowestChainLength = Integer.MAX_VALUE;
+    int discardTileIndex = -1;
+
+    for (int i = 0; i < players[currentPlayerIndex].numberOfTiles; i++) {
+        Tile currentTile = currPLayerTiles[i];
+        int currPlayerLCofCurrTile = players[currentPlayerIndex].findLongestChainOf(currentTile);
+
+        if (currPlayerLCofCurrTile < lowestChainLength) {
+            lowestChainLength = currPlayerLCofCurrTile; //if less, then update the index of discarded tile
+            discardTileIndex = i;
         }
-        lastDiscardedTile = playerTiles[discardTileIndex];
-        discardTile(discardTileIndex);
-        System.out.println("The tile " + getLastDiscardedTile2() + " was discarded.\n");//*****PARINAZ***** changed getLastDiscardedTile() to getLastDiscardedTile2() to show the removed tile not null
+    }
+
+    Tile tileToDiscard = currPLayerTiles[discardTileIndex]; 
+    discardTile(discardTileIndex);
+    System.out.println("The tile "+tileToDiscard.toString() + " is discarded.");
     }
 
     /* Rida
